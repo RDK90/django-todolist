@@ -25,6 +25,8 @@ services:
       - "db"
     networks:
       - internal
+    environment: 
+      TODO_LIST_SECRET_KEY: $TODO_LIST_SECRET_KEY
     command: >
       /bin/bash -c "
         sleep 5;
