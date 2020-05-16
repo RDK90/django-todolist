@@ -108,3 +108,21 @@ class TestTodos(TestCase):
             content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_delete_todo_by_id(self):
+        response = self.client.delete(
+            reverse('todos:todo_by_id', kwargs={"todo_id":self.first_todo.id})
+        )
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_delete_todo_by_unknown_id(self):
+        response = self.client.delete(
+            reverse('todos:todo_by_id', kwargs={"todo_id":6843436469843654984})
+        )
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_delete_todo_by_invalid_id(self):
+        response = self.client.delete(
+            reverse('todos:todo_by_id', kwargs={"todo_id":"dewfragreagea"})
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
