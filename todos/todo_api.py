@@ -29,7 +29,7 @@ def get_all_todos(request):
             content = "{} is not a valid payload".format(request.data)
             return Response(content, status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def todos_by_id(request, todo_id):
     try:
         todo_id = int(todo_id)
@@ -53,5 +53,9 @@ def todos_by_id(request, todo_id):
         else:
             content = "{} is not a valid payload".format(request.data)
             return Response(content, status.HTTP_400_BAD_REQUEST)
+    elif request.method == "DELETE":
+        todos = Todo.objects.get(id=todo_id)
+        todos.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
 
