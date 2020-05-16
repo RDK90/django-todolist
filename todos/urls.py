@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^details/(?P<id>\w{0,50})/$', views.details),
-    url(r'^add', views.add, name='add')
+    path('todos/', views.index, name='index'),
+    path('details/<id>', views.details),
+    path('add/', views.add, name='add')
 ]
