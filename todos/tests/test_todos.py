@@ -24,6 +24,9 @@ class TestTodos(TestCase):
             "title":"", 
             "text":"valid_payload text",
         }]
+        self.incomplete_payload = [{
+            "text":"incomplete text"
+        }]
 
     def test_get_all_todos(self):
         response = self.client.get(reverse('todos:get_all_todos'))
@@ -78,6 +81,30 @@ class TestTodos(TestCase):
         response = self.client.put(
             reverse('todos:todo_by_id', kwargs={'todo_id':"foireuifoif"}),
             data=json.dumps(self.valid_payload, cls=DjangoJSONEncoder),
+            content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_post_todo(self):
+        response = self.client.post(
+            reverse('todos:get_all_todos'),
+            data=json.dumps(self.valid_payload, cls=DjangoJSONEncoder),
+            content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_invalid_post_todo(self):
+        response = self.client.post(
+            reverse('todos:get_all_todos'),
+            data=json.dumps(self.invalid_payload, cls=DjangoJSONEncoder),
+            content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_incomplete_post_todo(self):
+        response = self.client.post(
+            reverse('todos:get_all_todos'),
+            data=json.dumps(self.incomplete_payload, cls=DjangoJSONEncoder),
             content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
