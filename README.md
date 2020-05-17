@@ -5,6 +5,7 @@ This project is to build upon the Django To Do List app built by [Brad Traversy]
 
 ## Prerequisites
 Docker - version 19+ [Installation guide](https://docs.docker.com/get-docker/)
+
 Docker-compose - version 3+ [Installation guide](https://docs.docker.com/compose/install/)
 
 ## Installation
@@ -24,7 +25,7 @@ Browse to http://0.0.0.0:8000/todos
 
 ## Database Migrations
 ### Apply Latest Changes
-In order to apply the models API changes to the PostgreSQL DB, some Django methods need to be implemented. To do this, access the Django container by:
+In order to apply the models API changes to the PostgreSQL DB some Django methods need to be implemented. To do this, access the Django container by:
 ```bash
 docker exec -it to_do_web bash
 ```
@@ -33,7 +34,7 @@ Next, migrate the changes
 python manage.py migrate
 ```
 ### Apply Developer Changes
-If you are editing the models API, then a new migrations file will need to be generated in order to apply this changes to the DB. In this case, access the container as above and run the following command to create the migrations file. 
+If you are editing the models API, then a new migrations file will need to be generated in order to apply these changes to the DB. In this case, access the container as above and run the following command to create the migrations file. 
 ```bash
 python manage.py makemigrations
 ```
